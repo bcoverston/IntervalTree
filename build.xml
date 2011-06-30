@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="intervaltree" default="all">
+  
+  
+  <property file="intervaltree.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.zip"/>
+    <include name="*.war"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.6" value="${jdk.home.1.6}/bin"/>
+  <path id="jdk.classpath.1.6">
+    <fileset dir="${jdk.home.1.6}">
+      <include name="../../../../../../System/Library/Java/Support/Deploy.bundle/Contents/Resources/Java/deploy.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javaws.jar"/>
+      <include name="lib/jce.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/management-agent.jar"/>
+      <include name="lib/plugin.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="../Classes/alt-rt.jar"/>
+      <include name="../Classes/charsets.jar"/>
+      <include name="../Classes/classes.jar"/>
+      <include name="../Classes/jsse.jar"/>
+      <include name="../Classes/ui.jar"/>
+      <include name="lib/ext/apple_provider.jar"/>
+      <include name="lib/ext/dnsns.jar"/>
+      <include name="lib/ext/localedata.jar"/>
+      <include name="lib/ext/sunjce_provider.jar"/>
+      <include name="lib/ext/sunpkcs11.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.6}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.6}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.6"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.maven:_com.google.guava:guava:r09.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/r09/guava-r09.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-lang:commons-lang:2.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-lang/commons-lang/2.1/commons-lang-2.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_junit:junit:4.8.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/junit/junit/4.8.2/junit-4.8.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-math:2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-math/2.2/commons-math-2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.uima:uimaj-core:2.3.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/uima/uimaj-core/2.3.1/uimaj-core-2.3.1.jar"/>
+  </path>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module IntervalTree -->
+  
+  <dirname property="module.intervaltree.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.intervaltree" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.intervaltree" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.intervaltree" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.intervaltree" value="${compiler.args}"/>
+  
+  <property name="intervaltree.output.dir" value="${module.intervaltree.basedir}/target/classes"/>
+  <property name="intervaltree.testoutput.dir" value="${module.intervaltree.basedir}/target/test-classes"/>
+  
+  <path id="intervaltree.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="intervaltree.module.production.classpath">
+    <path refid="${module.jdk.classpath.intervaltree}"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:r09.classpath"/>
+    <path refid="library.maven:_org.apache.uima:uimaj-core:2.3.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math:2.2.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.1.classpath"/>
+  </path>
+  
+  <path id="intervaltree.runtime.production.module.classpath">
+    <pathelement location="${intervaltree.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:r09.classpath"/>
+    <path refid="library.maven:_org.apache.uima:uimaj-core:2.3.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math:2.2.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.1.classpath"/>
+  </path>
+  
+  <path id="intervaltree.module.classpath">
+    <path refid="${module.jdk.classpath.intervaltree}"/>
+    <pathelement location="${intervaltree.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:r09.classpath"/>
+    <path refid="library.maven:_org.apache.uima:uimaj-core:2.3.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math:2.2.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.1.classpath"/>
+  </path>
+  
+  <path id="intervaltree.runtime.module.classpath">
+    <pathelement location="${intervaltree.testoutput.dir}"/>
+    <pathelement location="${intervaltree.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:r09.classpath"/>
+    <path refid="library.maven:_org.apache.uima:uimaj-core:2.3.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math:2.2.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.intervaltree">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.intervaltree">
+    <patternset refid="excluded.from.module.intervaltree"/>
+  </patternset>
+  
+  <path id="intervaltree.module.sourcepath">
+    <dirset dir="${module.intervaltree.basedir}">
+      <include name="src/main/java"/>
+    </dirset>
+  </path>
+  
+  <path id="intervaltree.module.test.sourcepath">
+    <dirset dir="${module.intervaltree.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.intervaltree" depends="compile.module.intervaltree.production,compile.module.intervaltree.tests" description="Compile module IntervalTree"/>
+  
+  <target name="compile.module.intervaltree.production" description="Compile module IntervalTree; production classes">
+    <mkdir dir="${intervaltree.output.dir}"/>
+    <javac destdir="${intervaltree.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.intervaltree}/javac">
+      <compilerarg line="${compiler.args.intervaltree}"/>
+      <bootclasspath refid="intervaltree.module.bootclasspath"/>
+      <classpath refid="intervaltree.module.production.classpath"/>
+      <src refid="intervaltree.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.intervaltree"/>
+    </javac>
+    
+    <copy todir="${intervaltree.output.dir}">
+      <fileset dir="${module.intervaltree.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.intervaltree.tests" depends="compile.module.intervaltree.production" description="compile module IntervalTree; test classes" unless="skip.tests">
+    <mkdir dir="${intervaltree.testoutput.dir}"/>
+    <javac destdir="${intervaltree.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.intervaltree}/javac">
+      <compilerarg line="${compiler.args.intervaltree}"/>
+      <bootclasspath refid="intervaltree.module.bootclasspath"/>
+      <classpath refid="intervaltree.module.classpath"/>
+      <src refid="intervaltree.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.intervaltree"/>
+    </javac>
+    
+    <copy todir="${intervaltree.testoutput.dir}">
+      <fileset dir="${module.intervaltree.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.intervaltree" description="cleanup module">
+    <delete dir="${intervaltree.output.dir}"/>
+    <delete dir="${intervaltree.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.intervaltree" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.intervaltree" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>
