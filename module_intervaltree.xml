@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_intervaltree" default="compile.module.intervaltree">
+  <dirname property="module.intervaltree.basedir" file="${ant.file.module_intervaltree}"/>
+  
+  <property name="module.jdk.home.intervaltree" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.intervaltree" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.intervaltree" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.intervaltree" value="${compiler.args}"/>
+  
+  <property name="intervaltree.output.dir" value="${module.intervaltree.basedir}/target/classes"/>
+  <property name="intervaltree.testoutput.dir" value="${module.intervaltree.basedir}/target/test-classes"/>
+  
+  <path id="intervaltree.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="intervaltree.module.production.classpath">
+    <path refid="${module.jdk.classpath.intervaltree}"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+  </path>
+  
+  <path id="intervaltree.runtime.production.module.classpath">
+    <pathelement location="${intervaltree.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+  </path>
+  
+  <path id="intervaltree.module.classpath">
+    <path refid="${module.jdk.classpath.intervaltree}"/>
+    <pathelement location="${intervaltree.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+  </path>
+  
+  <path id="intervaltree.runtime.module.classpath">
+    <pathelement location="${intervaltree.testoutput.dir}"/>
+    <pathelement location="${intervaltree.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.8.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.intervaltree">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.intervaltree">
+    <patternset refid="excluded.from.module.intervaltree"/>
+  </patternset>
+  
+  <path id="intervaltree.module.sourcepath">
+    <dirset dir="${module.intervaltree.basedir}">
+      <include name="src/main/java"/>
+    </dirset>
+  </path>
+  
+  <path id="intervaltree.module.test.sourcepath">
+    <dirset dir="${module.intervaltree.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.intervaltree" depends="compile.module.intervaltree.production,compile.module.intervaltree.tests" description="Compile module com.coversb.collections.IntervalTree"/>
+  
+  <target name="compile.module.intervaltree.production" depends="register.custom.compilers" description="Compile module com.coversb.collections.IntervalTree; production classes">
+    <mkdir dir="${intervaltree.output.dir}"/>
+    <javac2 destdir="${intervaltree.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.intervaltree}/javac">
+      <compilerarg line="${compiler.args.intervaltree}"/>
+      <bootclasspath refid="intervaltree.module.bootclasspath"/>
+      <classpath refid="intervaltree.module.production.classpath"/>
+      <src refid="intervaltree.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.intervaltree"/>
+    </javac2>
+    
+    <copy todir="${intervaltree.output.dir}">
+      <fileset dir="${module.intervaltree.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.intervaltree.tests" depends="register.custom.compilers,compile.module.intervaltree.production" description="compile module com.coversb.collections.IntervalTree; test classes" unless="skip.tests">
+    <mkdir dir="${intervaltree.testoutput.dir}"/>
+    <javac2 destdir="${intervaltree.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.intervaltree}/javac">
+      <compilerarg line="${compiler.args.intervaltree}"/>
+      <bootclasspath refid="intervaltree.module.bootclasspath"/>
+      <classpath refid="intervaltree.module.classpath"/>
+      <src refid="intervaltree.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.intervaltree"/>
+    </javac2>
+    
+    <copy todir="${intervaltree.testoutput.dir}">
+      <fileset dir="${module.intervaltree.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.intervaltree" description="cleanup module">
+    <delete dir="${intervaltree.output.dir}"/>
+    <delete dir="${intervaltree.testoutput.dir}"/>
+  </target>
+</project>
